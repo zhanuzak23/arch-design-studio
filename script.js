@@ -7,6 +7,7 @@
   var CFG = window.ARCH_CONFIG || {};
   var CALC = CFG.calc || {};
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var MOBILE = window.matchMedia('(max-width:620px)');
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
@@ -201,10 +202,10 @@
       el.appendChild(mask);
     });
 
-    /* настоящие изображения раскрываем шторкой.
+    /* фотографии раскрываем шторкой.
        Кейсы сюда не входят: их визуал живёт в ::after, а шторка заняла бы
        тот же псевдоэлемент — им отдана отдельная анимация масштабом. */
-    $$('.pers__ph, .cmp__box').forEach(function (el) {
+    $$('.pers__ph').forEach(function (el) {
       el.classList.add('rv-img');
     });
   }
@@ -215,7 +216,7 @@
       el.style.setProperty('--d', Math.min(i * (step || 80), 420) + 'ms');
     });
   }
-  ['.bento', '.srv', '.srv__extra', '.cases', '.team', '.revs', '.price', '.proc', '.hero__facts']
+  ['.bento', '.srv', '.srv__extra', '.cases', '.team', '.price', '.proc', '.hero__facts']
     .forEach(function (sel) { $$(sel).forEach(function (c) { stagger(c); }); });
 
   var revealables = $$('.reveal, .rv-img, .rv-line');
@@ -443,6 +444,22 @@
     render();
   }
 
+  /* Тарифы: список «что входит» прячем под спойлер, чтобы три карточки
+     помещались в один экран телефона. На десктопе спойлер раскрыт. */
+  $$('.price__c').forEach(function (card) {
+    var list = card.querySelector('ul');
+    if (!list || card.querySelector('.price__more')) return;
+    var d = document.createElement('details');
+    d.className = 'price__more';
+    var sum = document.createElement('summary');
+    sum.textContent = 'Что входит';
+    d.appendChild(sum);
+    list.parentNode.insertBefore(d, list);
+    d.appendChild(list);
+  });
+  var prices = $$('.price__more');
+  function syncPrices() { prices.forEach(function (d) { d.open = !MOBILE.matches; }); }
+
   /* кнопки «Рассчитать» в тарифах выбирают пакет в калькуляторе */
   $$('[data-pkg]').forEach(function (a) {
     a.addEventListener('click', function () {
@@ -455,6 +472,19 @@
   var cName = $('#cName'), cPhone = $('#cPhone'), calcSend = $('#calcSend');
   maskPhone(cPhone);
   maskPhone($('#fphone'));
+
+  var calcSum = $('#calcSum');
+  var UNLOCK_KEY = 'arch_calc_unlocked';
+
+  function unlockCalc() {
+    if (!calcSum) return;
+    calcSum.classList.remove('is-locked');
+    var reveal = $('#sumReveal');
+    if (reveal) reveal.removeAttribute('aria-hidden');
+  }
+
+  /* если контакты уже оставляли — не просим второй раз */
+  try { if (localStorage.getItem(UNLOCK_KEY)) unlockCalc(); } catch (e) { /* приватный режим */ }
 
   if (calcSend) {
     calcSend.addEventListener('click', function () {
@@ -490,44 +520,21 @@
       calcSend.textContent = 'Отправляем…';
 
       sendLead(payload).then(function (res) {
-        calcNote.textContent = res.via === 'whatsapp'
-          ? 'Открыли WhatsApp с готовым сообщением — осталось нажать «Отправить».'
-          : 'Расчёт отправлен менеджеру. Перезвоним в течение рабочего дня.';
-        calcNote.classList.add('is-ok');
-        toast('Заявка отправлена');
+        unlockCalc();
+        try { localStorage.setItem(UNLOCK_KEY, '1'); } catch (e) {}
+        toast('Расчёт открыт, заявка отправлена');
         track('lead_calc', { via: res.via, pkg: r.pkg.label, area: r.area, min: Math.round(r.min) });
-        cName.value = ''; cPhone.value = '';
       }).catch(function (err) {
-        calcNote.textContent = 'Не удалось отправить. Позвоните нам: ' + (CFG.contacts && CFG.contacts.phone || '');
-        calcNote.classList.add('is-err');
+        /* заявка не ушла — но расчёт всё равно показываем, иначе это выглядит
+           как обман: человек оставил контакты и ничего не получил */
+        unlockCalc();
+        toast('Расчёт открыт');
         console.error('[ARCH] lead error:', err);
       }).then(function () {
         calcSend.disabled = false;
-        calcSend.innerHTML = '<svg class="ico" viewBox="0 0 24 24"><use href="#i-telegram"/></svg>Отправить расчёт менеджеру';
+        calcSend.innerHTML = '<svg class="ico" viewBox="0 0 24 24"><use href="#i-calc"/></svg>Показать расчёт';
       });
     });
-  }
-
-  /* ---------------------------------------------------------
-     Сравнение «3D → факт»
-     --------------------------------------------------------- */
-  var cmpRange = $('#cmpRange'), cmpClip = $('#cmpClip'), cmpHandle = $('#cmpHandle'), cmpBox = $('.cmp__box');
-  if (cmpRange && cmpClip) {
-    var cmpSeen = false;
-    var setCmp = function (v) {
-      cmpClip.style.width = v + '%';
-      cmpHandle.style.left = v + '%';
-      if (!cmpSeen && (v < 35 || v > 65)) { cmpSeen = true; track('compare_used'); }
-    };
-    /* внутренняя картинка не должна сжиматься вместе с обрезкой */
-    var sizeCmp = function () {
-      cmpClip.style.setProperty('--boxw', cmpBox.getBoundingClientRect().width + 'px');
-    };
-    sizeCmp();
-    window.addEventListener('resize', sizeCmp);
-    if (window.ResizeObserver) new ResizeObserver(sizeCmp).observe(cmpBox);
-    cmpRange.addEventListener('input', function () { setCmp(+cmpRange.value); });
-    setCmp(+cmpRange.value);
   }
 
   /* ---------------------------------------------------------
@@ -535,7 +542,6 @@
      --------------------------------------------------------- */
   var chips = $$('.chip'), cases = $$('.case');
   var casesMore = $('#casesMore'), casesLeft = $('#casesLeft');
-  var MOBILE = window.matchMedia('(max-width:620px)');
   var LIMIT = 3;
   var expanded = false;
   var currentFilter = 'all';
@@ -579,6 +585,9 @@
   }
   if (MOBILE.addEventListener) MOBILE.addEventListener('change', applyCases);
   applyCases();
+
+  syncPrices();
+  if (MOBILE.addEventListener) MOBILE.addEventListener('change', syncPrices);
 
   var lb = $('#lightbox'), lbImg = $('#lbImg'), lbTitle = $('#lbTitle'),
       lbMeta = $('#lbMeta'), lbScope = $('#lbScope'), lbClose = $('#lbClose');
@@ -667,28 +676,6 @@
       });
     });
   }
-
-  /* этапы процесса: на мобильном свёрнуты до двух строк, разворачиваются тапом.
-     Текст всегда остаётся в разметке — важно для поисковой выдачи. */
-  var steps = $$('.proc__i');
-  function syncSteps() {
-    steps.forEach(function (s) {
-      if (MOBILE.matches) {
-        if (!s.classList.contains('is-open')) s.classList.add('is-clamped');
-      } else {
-        s.classList.remove('is-clamped', 'is-open');
-      }
-    });
-  }
-  steps.forEach(function (s) {
-    s.addEventListener('click', function () {
-      if (!MOBILE.matches) return;
-      var open = s.classList.toggle('is-open');
-      s.classList.toggle('is-clamped', !open);
-    });
-  });
-  syncSteps();
-  if (MOBILE.addEventListener) MOBILE.addEventListener('change', syncSteps);
 
   /* реквизиты в подвале: на мобильном свёрнуты, на десктопе раскрыты */
   var req = $('.ft__col--req');

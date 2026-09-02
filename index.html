@@ -26,7 +26,7 @@
 
 <link rel="preload" href="assets/fonts/SFProDisplay-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/SFProDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=3.1">
+<link rel="stylesheet" href="styles.css?v=4.0">
 
 <!-- Анимации включаются только если работает JS. Без него страница
      просто отрисована — контент не может остаться невидимым. -->
@@ -118,7 +118,7 @@
         <span class="dot"></span>Студия архитектуры и дизайна · Кызылорда
       </p>
       <h1 class="hero__h1 reveal">
-        Дизайн-проект за 4 недели<br>с <span class="hl">фиксированной&nbsp;сметой</span>
+        Дизайн-проект за 4 недели<br><span class="hl">с фиксированной сметой</span>
       </h1>
       <p class="hero__lead reveal">
         Смета закрепляется в договоре и не растёт по ходу работ. Ведём объект от замера
@@ -136,8 +136,8 @@
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calc"/></svg>
           Узнать стоимость за 30 секунд
         </a>
-        <a class="btn btn--ghost" href="#compare" data-track="cta_hero_compare">
-          3D против факта
+        <a class="btn btn--ghost" href="#cases" data-track="cta_hero_cases">
+          Смотреть работы
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow-ur"/></svg>
         </a>
       </div>
@@ -201,47 +201,11 @@
   </div>
 </section>
 
-<!-- ============ 3D → ФАКТ ============ -->
-<section class="sec sec--dark" id="compare">
-  <div class="wrap cmp__wrap">
-    <div class="cmp__txt reveal">
-      <span class="tag">01 — Доказательство</span>
-      <h2 class="h2">3D-визуализация против готового объекта</h2>
-      <p class="sec__lead">
-        Главный страх заказчика — что на картинке будет одно, а в жизни другое.
-        Поэтому мы показываем не только рендеры, но и фотографии сданных объектов
-        с той же точки. Потяните ползунок.
-      </p>
-      <ul class="cmp__pts">
-        <li><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-check"/></svg>Материалы и мебель из проекта закупаем сами</li>
-        <li><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-check"/></svg>Авторский надзор на всех этапах стройки</li>
-        <li><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-check"/></svg>Расхождение с визуализацией — наша зона ответственности</li>
-      </ul>
-      <a class="btn" href="#lead" data-track="cta_compare">Хочу так же</a>
-    </div>
-
-    <figure class="cmp reveal" id="cmp">
-      <div class="cmp__box">
-        <img class="cmp__img cmp__img--after"  src="assets/compare/photo.svg" alt="Фотография реализованной гостиной" width="1200" height="800" loading="lazy">
-        <div class="cmp__clip" id="cmpClip">
-          <img class="cmp__img cmp__img--before" src="assets/compare/viz.svg" alt="3D-визуализация той же гостиной до реализации" width="1200" height="800" loading="lazy">
-        </div>
-        <div class="cmp__handle" id="cmpHandle">
-          <span class="cmp__grip"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-chevron"/></svg><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-chevron"/></svg></span>
-        </div>
-        <input class="cmp__range" id="cmpRange" type="range" min="0" max="100" value="50"
-               aria-label="Сравнение визуализации и фотографии объекта">
-      </div>
-      <figcaption>Гостиная 96 м², Кызылорда — проект и реализация студии</figcaption>
-    </figure>
-  </div>
-</section>
-
 <!-- ============ ABOUT ============ -->
 <section class="sec" id="about">
   <div class="wrap">
     <div class="sec__head reveal">
-      <span class="tag">02 — О студии</span>
+      <span class="tag">01 — О студии</span>
       <h2 class="h2">У нас не бывает двух одинаковых решений</h2>
       <p class="sec__lead">
         Каждый проект — отражение индивидуальности клиента. Мы реализовали десятки уникальных
@@ -265,12 +229,7 @@
         <h3>Авторский надзор</h3>
         <p>Тщательно выбираем материалы, оборудование и декор — и следим за реализацией.</p>
       </article>
-      <article class="card reveal">
-        <div class="card__ico"><svg class="ico ico--24" viewBox="0 0 24 24"><use href="#i-bulb"/></svg></div>
-        <h3>Свежие идеи</h3>
-        <p>Следим за тенденциями и внедряем новые решения в каждом проекте.</p>
-      </article>
-      <article class="card card--accent card--wide reveal">
+      <article class="card card--accent card--full reveal">
         <div class="card__ico"><svg class="ico ico--24" viewBox="0 0 24 24"><use href="#i-tag"/></svg></div>
         <h3>Работаем без посредников</h3>
         <p>Сотрудничаем с фабриками напрямую и закупаем стройматериалы со скидкой до 30% — вы получаете лучшее качество на выгодных условиях.</p>
@@ -283,7 +242,7 @@
 <section class="sec sec--alt" id="services">
   <div class="wrap">
     <div class="sec__head reveal">
-      <span class="tag">03 — Услуги</span>
+      <span class="tag">02 — Услуги</span>
       <h2 class="h2">Услуги дизайн-студии в Кызылорде</h2>
       <p class="sec__lead">Полный спектр работ для жилых, коммерческих и общественных объектов.</p>
     </div>
@@ -331,12 +290,18 @@
       </article>
     </div>
 
-    <ul class="srv__extra reveal">
+    <div class="extra reveal">
+      <div class="extra__head">
+        <span class="extra__tag">Входит в работу со студией</span>
+        <p>Эти четыре вещи вы получаете при любом тарифе — отдельно за них платить не нужно.</p>
+      </div>
+    <ul class="srv__extra">
       <li><svg class="ico ico--20" viewBox="0 0 24 24"><use href="#i-ruler"/></svg><b>Бесплатный замер</b><span>Замерщик приедет в удобное время и бесплатно составит смету.</span></li>
       <li><svg class="ico ico--20" viewBox="0 0 24 24"><use href="#i-cart"/></svg><b>Закупка материалов</b><span>Поможем или закупим самостоятельно со скидкой до 30%.</span></li>
       <li><svg class="ico ico--20" viewBox="0 0 24 24"><use href="#i-truck"/></svg><b>Доставка</b><span>Обеспечим доставку стройматериалов в установленные сроки.</span></li>
       <li><svg class="ico ico--20" viewBox="0 0 24 24"><use href="#i-shield"/></svg><b>Контроль качества</b><span>В любой момент вы можете оценить качество выполняемых работ.</span></li>
     </ul>
+    </div>
   </div>
 </section>
 
@@ -344,7 +309,7 @@
 <section class="sec sec--dark" id="process">
   <div class="wrap">
     <div class="sec__head reveal">
-      <span class="tag">04 — Процесс</span>
+      <span class="tag">03 — Процесс</span>
       <h2 class="h2">Как проходит работа над дизайн-проектом</h2>
       <p class="sec__lead">Четыре понятных этапа — от первого звонка до готового интерьера.</p>
     </div>
@@ -390,7 +355,7 @@
 <section class="sec sec--alt" id="calc">
   <div class="wrap">
     <div class="sec__head reveal">
-      <span class="tag">05 — Калькулятор</span>
+      <span class="tag">04 — Калькулятор</span>
       <h2 class="h2">Рассчитайте стоимость проекта</h2>
       <p class="sec__lead">
         Ориентировочный расчёт по действующему прайсу студии. Итоговую смету
@@ -444,7 +409,7 @@
           <details class="fold" id="optFold">
             <summary>
               <span class="cgroup__n">4</span>
-              Дополнительно
+              Дополнительно и сроки
               <b class="fold__c" id="optCount"></b>
               <svg class="ico ico--18 fold__x" viewBox="0 0 24 24"><use href="#i-chevron"/></svg>
             </summary>
@@ -462,36 +427,38 @@
             <label class="opt opt--chk"><input type="checkbox" name="opt" value="landscape">
               <span class="opt__b"><span class="opt__t">Благоустройство территории</span><i data-price="landscape"></i></span></label>
           </div>
-          </details>
-        </fieldset>
-
-        <fieldset class="cgroup">
-          <legend><span class="cgroup__n">5</span>Сроки</legend>
-          <div class="opts opts--2">
+            <p class="fold__sub">Сроки</p>
+            <div class="opts opts--2">
             <label class="opt"><input type="radio" name="urg" value="normal" checked>
               <span class="opt__b"><span class="opt__t">Стандартный срок</span></span></label>
             <label class="opt"><input type="radio" name="urg" value="fast">
               <span class="opt__b"><span class="opt__t">Ускоренно <i>+20%</i></span></span></label>
-          </div>
+          </details>
         </fieldset>
+
       </form>
 
       <!-- ---- Итог + отправка в Telegram ---- -->
-      <aside class="calc__sum" id="calcSum">
-        <div class="sum__top">
-          <span class="sum__label">Предварительная стоимость</span>
-          <div class="sum__price"><output id="sumPrice">—</output></div>
-          <div class="sum__per" id="sumPer"></div>
+      <aside class="calc__sum is-locked" id="calcSum">
+        <div class="sum__reveal" id="sumReveal" aria-hidden="true">
+          <div class="sum__top">
+            <span class="sum__label">Предварительная стоимость</span>
+            <div class="sum__price"><output id="sumPrice">—</output></div>
+            <div class="sum__per" id="sumPer"></div>
+          </div>
+
+          <dl class="sum__rows" id="sumRows"></dl>
+
+          <div class="sum__bar">
+            <div class="sum__bar-i"><svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-clock"/></svg><span id="sumTerm">—</span></div>
+            <div class="sum__bar-i"><svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-ruler"/></svg><span id="sumArea">—</span></div>
+          </div>
         </div>
 
-        <dl class="sum__rows" id="sumRows"></dl>
-
-        <div class="sum__bar">
-          <div class="sum__bar-i"><svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-clock"/></svg><span id="sumTerm">—</span></div>
-          <div class="sum__bar-i"><svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-ruler"/></svg><span id="sumArea">—</span></div>
-        </div>
-
-        <div class="sum__lead">
+        <div class="gate" id="calcGate">
+          <span class="gate__tag">Расчёт готов</span>
+          <p class="gate__t">Оставьте контакты — покажем стоимость и срок</p>
+          <p class="gate__d">И перезвоним с точной сметой после бесплатного замера.</p>
           <div class="field field--sm">
             <label for="cName">Имя</label>
             <input id="cName" type="text" placeholder="Как к вам обращаться" autocomplete="name">
@@ -501,13 +468,16 @@
             <input id="cPhone" type="tel" placeholder="+7 (___) ___ __ __" autocomplete="tel">
           </div>
           <button class="btn btn--full" type="button" id="calcSend">
-            <svg class="ico" viewBox="0 0 24 24"><use href="#i-telegram"/></svg>
-            Отправить расчёт менеджеру
+            <svg class="ico" viewBox="0 0 24 24"><use href="#i-calc"/></svg>
+            Показать расчёт
           </button>
-          <p class="sum__note" id="calcNote">
-            Расчёт ориентировочный. Точная смета — после бесплатного замера.
-          </p>
+          <p class="sum__note" id="calcNote">Расчёт ориентировочный. Точная смета — после замера.</p>
         </div>
+
+        <p class="sum__done">
+          <svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-check"/></svg>
+          Заявка у менеджера — перезвоним в течение рабочего дня
+        </p>
       </aside>
     </div>
   </div>
@@ -517,7 +487,7 @@
 <section class="sec" id="pricing">
   <div class="wrap">
     <div class="sec__head reveal">
-      <span class="tag">06 — Тарифы</span>
+      <span class="tag">05 — Тарифы</span>
       <h2 class="h2">Сколько стоит дизайн-проект</h2>
       <p class="sec__lead">Цена указана за 1 м². При больших объёмах действуют скидки.</p>
     </div>
@@ -587,7 +557,7 @@
 <section class="sec sec--alt" id="cases">
   <div class="wrap">
     <div class="sec__head reveal">
-      <span class="tag">07 — Кейсы</span>
+      <span class="tag">06 — Кейсы</span>
       <h2 class="h2">Наши работы: квартиры, дома и коммерция</h2>
       <p class="sec__lead">Жилые, коммерческие и общественные объекты, реализованные студией.</p>
     </div>
@@ -609,7 +579,7 @@
         <div class="case__b"><h3>Квартира в современном стиле</h3><p>Дизайн-проект · 3D · рабочая документация</p></div>
       </article>
 
-      <article class="case case--tall reveal" data-c="house" data-title="Частный дом, полный цикл"
+      <article class="case reveal" data-c="house" data-title="Частный дом, полный цикл"
         data-meta="Кызылорда · 240 м² · 2023–2024"
         data-scope="Архитектурная концепция и фасады|Планировки двух этажей|Интерьер всех помещений|Авторский надзор до сдачи">
         <div class="case__img case__img--b"><span class="case__area">240 м²</span>
@@ -641,7 +611,7 @@
         <div class="case__b"><h3>Благоустройство участка</h3><p>Ландшафт · озеленение · малые формы</p></div>
       </article>
 
-      <article class="case case--wide reveal" data-c="comm" data-title="Офис компании"
+      <article class="case reveal" data-c="comm" data-title="Офис компании"
         data-meta="Кызылорда · 320 м² · 2023"
         data-scope="Планировка open space и переговорных|Инженерия и слаботочка в проекте|Корпоративная айдентика в интерьере|Рабочий проект и надзор">
         <div class="case__img case__img--f"><span class="case__area">320 м²</span>
@@ -667,43 +637,11 @@
   </div>
 </section>
 
-<!-- ============ REVIEWS ============ -->
-<!-- ⚠️ ЗАМЕНИТЬ НА РЕАЛЬНЫЕ ОТЗЫВЫ. Тексты ниже — рыба-заглушка, а не
-     настоящие слова клиентов. Публиковать их как отзывы нельзя.
-     Структура карточки: имя · объект · текст · (по желанию) фото. -->
-<section class="sec" id="reviews" data-placeholder="true">
-  <div class="wrap">
-    <div class="sec__head reveal">
-      <span class="tag">08 — Отзывы</span>
-      <h2 class="h2">Что говорят заказчики</h2>
-      <p class="sec__lead">Реальные объекты, реальные люди — спрашивайте контакты любого, дадим.</p>
-    </div>
-
-    <div class="revs" id="revs">
-      <article class="rev reveal">
-        <div class="rev__q">“</div>
-        <p class="rev__t">Место для отзыва клиента. Сильнее всего работают конкретные фразы: сколько длился проект, уложились ли в смету, что понравилось в работе на площадке.</p>
-        <footer><b>Имя клиента</b><span>Квартира 96 м², Кызылорда</span></footer>
-      </article>
-      <article class="rev reveal">
-        <div class="rev__q">“</div>
-        <p class="rev__t">Место для отзыва клиента. Хорошо, если человек упоминает страх, который был до начала работ, и то, как он не оправдался.</p>
-        <footer><b>Имя клиента</b><span>Частный дом 240 м²</span></footer>
-      </article>
-      <article class="rev reveal">
-        <div class="rev__q">“</div>
-        <p class="rev__t">Место для отзыва клиента. Для коммерческих объектов ценно упоминание сроков запуска и того, как интерьер повлиял на поток гостей.</p>
-        <footer><b>Имя клиента</b><span>Кафе 180 м², Кызылорда</span></footer>
-      </article>
-    </div>
-  </div>
-</section>
-
 <!-- ============ TEAM ============ -->
 <section class="sec" id="team">
   <div class="wrap">
     <div class="sec__head reveal">
-      <span class="tag">09 — Команда</span>
+      <span class="tag">07 — Команда</span>
       <h2 class="h2">Архитекторы и дизайнеры студии</h2>
       <p class="sec__lead">Небольшая команда, где каждый проект ведёт архитектор, а не менеджер.</p>
     </div>
@@ -718,10 +656,6 @@
           <h3>Едилкасимов Әсет<br>Бауыржанұлы</h3>
           <p class="pers__r">Директор, архитектор, дизайнер</p>
           <p class="pers__t">Ведёт студию и отвечает за архитектурные решения — от концепции объекта до его облика на площадке.</p>
-          <div class="pers__links">
-            <a href="tel:+77003030370" aria-label="Позвонить"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-phone"/></svg></a>
-            <a href="mailto:arch_design.studio@gmail.com" aria-label="Написать"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-mail"/></svg></a>
-          </div>
         </div>
       </article>
 
@@ -733,9 +667,6 @@
           <h3>Әуезхан Нұрзат<br>Әзизұлы</h3>
           <p class="pers__r">Дизайнер, проектировщик</p>
           <p class="pers__t">Разрабатывает интерьерные концепции, планировки и 3D-визуализации проектов студии.</p>
-          <div class="pers__links">
-            <a href="tel:+77780087788" aria-label="Позвонить"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-phone"/></svg></a>
-          </div>
         </div>
       </article>
 
@@ -747,9 +678,6 @@
           <h3>Оспанов Абылай<br>Қуанышбекұлы</h3>
           <p class="pers__r">Проектировщик</p>
           <p class="pers__t">Готовит рабочую документацию и следит за точностью реализации на объекте.</p>
-          <div class="pers__links">
-            <a href="tel:+77780087788" aria-label="Позвонить"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-phone"/></svg></a>
-          </div>
         </div>
       </article>
     </div>
@@ -757,10 +685,10 @@
 </section>
 
 <!-- ============ FAQ ============ -->
-<section class="sec sec--alt" id="faq">
+<section class="sec sec--dark" id="faq">
   <div class="wrap faq__wrap">
     <div class="sec__head reveal">
-      <span class="tag">10 — Вопросы</span>
+      <span class="tag">08 — Вопросы</span>
       <h2 class="h2">Частые вопросы о дизайн-проекте</h2>
       <p class="sec__lead">Если не нашли свой — задайте его менеджеру, ответим в тот же день.</p>
     </div>
@@ -798,7 +726,7 @@
 <section class="lead" id="lead">
   <div class="wrap lead__in">
     <div class="lead__txt reveal">
-      <span class="tag tag--dark">11 — Заявка</span>
+      <span class="tag tag--dark">09 — Заявка</span>
       <h2 class="h2">Бесплатный замер<br>и расчёт проекта</h2>
       <p>Оставьте контакты — свяжемся в течение рабочего дня, обсудим задачу и назовём стоимость. Консультация по планировке бесплатна.</p>
       <ul class="lead__pts">
@@ -999,7 +927,7 @@
 }
 </script>
 
-<script src="config.js?v=3.1"></script>
-<script src="script.js?v=3.1"></script>
+<script src="config.js?v=4.0"></script>
+<script src="script.js?v=4.0"></script>
 </body>
 </html>

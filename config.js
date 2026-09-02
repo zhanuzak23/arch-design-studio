@@ -30,8 +30,8 @@ window.ARCH_CONFIG = {
      Аналитика. Без неё конверсию калькулятора измерить нечем.
      Счётчик подключается в <head>, сюда вписывается только номер.
      События, которые уже отправляются:
-       lead_form · lead_calc · compare_used · cases_filter ·
-       cases_more · click_phone · click_whatsapp · cta_* · instagram
+       lead_form · lead_calc · cases_filter · cases_more ·
+       click_phone · click_whatsapp · cta_* · instagram
      ============================================================ */
   analytics: {
     yandexMetrika: '',   // '98765432' — номер счётчика Яндекс.Метрики
