@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Фото реализованной гостиной">
+<defs>
+  <linearGradient id="vg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#0D0D0D" stop-opacity=".06"/>
+    <stop offset=".5" stop-color="#0D0D0D" stop-opacity="0"/>
+    <stop offset="1" stop-color="#0D0D0D" stop-opacity=".28"/>
+  </linearGradient>
+  <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FFFFFF" stop-opacity=".30"/>
+    <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+  </linearGradient>
+</defs>
+<rect width="1200" height="800" fill="#F4F4F4"/>
+
+  <!-- пол -->
+  <path d="M0 800 L1200 800 L870 560 L330 560 Z" fill="#6E6E6E"/>
+  <!-- потолок -->
+  <path d="M0 0 L1200 0 L870 230 L330 230 Z" fill="#F7F7F7"/>
+  <!-- левая стена -->
+  <path d="M0 0 L330 230 L330 560 L0 800 Z" fill="#E6E6E6"/>
+  <!-- правая стена -->
+  <path d="M1200 0 L870 230 L870 560 L1200 800 Z" fill="#F1F1F1"/>
+  <!-- задняя стена -->
+  <rect x="330" y="230" width="540" height="330" fill="#F4F4F4"/>
+
+  <!-- окно -->
+  <rect x="600" y="272" width="230" height="200" fill="#E4E4E4"/>
+  <rect x="600" y="272" width="230" height="200" fill="none" stroke="#2A2A2A" stroke-width="5"/>
+  <path d="M715 272v200M600 372h230" stroke="#2A2A2A" stroke-width="4"/>
+  <path d="M600 472 L560 560 L870 560 L830 472 Z" fill="#FFFFFF" opacity=".5"/>
+
+  <!-- ковёр -->
+  <path d="M300 800 L900 800 L800 606 L400 606 Z" fill="#B0A995"/>
+
+  <!-- диван у задней стены -->
+  <path d="M360 560 L560 560 L560 500 L360 500 Z" fill="#343434"/>
+  <path d="M348 620 L580 620 L570 552 L360 552 Z" fill="#3F3F3F"/>
+  <path d="M348 620 L580 620 L578 648 L346 648 Z" fill="#252525"/>
+  <path d="M380 548 L430 548 L432 520 L382 520 Z" fill="#C9BCA8"/>
+  <path d="M470 548 L520 548 L522 520 L472 520 Z" fill="#C9BCA8"/>
+
+  <!-- журнальный стол -->
+  <path d="M520 700 L720 700 L700 660 L540 660 Z" fill="#4A4A4A"/>
+  <path d="M520 700 L720 700 L718 712 L522 712 Z" fill="#2E2E2E"/>
+  <path d="M548 712v34M694 712v34" stroke="#2E2E2E" stroke-width="7"/>
+
+  <!-- подвесной светильник -->
+  <path d="M620 0 v96" stroke="#2A2A2A" stroke-width="3"/>
+  <path d="M578 96 L662 96 L644 148 L596 148 Z" fill="#0D0D0D"/>
+  <ellipse cx="620" cy="150" rx="24" ry="7" fill="#FFFFFF" opacity=".85"/>
+
+  <!-- растение справа -->
+  <path d="M900 800 L968 800 L956 700 L912 700 Z" fill="#2A2A2A"/>
+  <path d="M934 700 c-70-40-84-140-40-190 30 44 46 96 40 190Z" fill="#5A5A5A"/>
+  <path d="M934 700 c66-34 72-124 34-168-26 40-40 84-34 168Z" fill="#454545"/>
+
+  <!-- картина на левой стене -->
+  <path d="M120 250 L250 292 L250 452 L120 430 Z" fill="#7A7A7A"/>
+
+<rect width="1200" height="800" fill="url(#sun)"/>
+<rect width="1200" height="800" fill="url(#vg)"/>
+<g font-family="SF Pro Display, -apple-system, Segoe UI, sans-serif">
+  <rect x="36" y="36" width="190" height="46" rx="23" fill="#C9BCA8"/>
+  <text x="60" y="66" font-size="21" font-weight="600" fill="#0D0D0D">Фото объекта</text>
+</g>
+</svg>
