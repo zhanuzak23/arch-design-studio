@@ -26,7 +26,7 @@
 
 <link rel="preload" href="assets/fonts/SFProDisplay-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/SFProDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=4.0">
+<link rel="stylesheet" href="styles.css?v=4.6">
 
 <!-- Анимации включаются только если работает JS. Без него страница
      просто отрисована — контент не может остаться невидимым. -->
@@ -118,7 +118,7 @@
         <span class="dot"></span>Студия архитектуры и дизайна · Кызылорда
       </p>
       <h1 class="hero__h1 reveal">
-        Дизайн-проект за 4 недели<br><span class="hl">с фиксированной сметой</span>
+        Дизайн-проект за 4&nbsp;недели<br><span class="hl">с&nbsp;фиксированной сметой</span>
       </h1>
       <p class="hero__lead reveal">
         Смета закрепляется в договоре и не растёт по ходу работ. Ведём объект от замера
@@ -364,124 +364,115 @@
     </div>
 
     <div class="calc reveal">
-      <form class="calc__form" id="calcForm">
-
-        <fieldset class="cgroup">
-          <legend><span class="cgroup__n">1</span>Тип объекта</legend>
-          <div class="opts opts--4" id="objRow">
-            <label class="opt"><input type="radio" name="obj" value="flat" checked>
-              <span class="opt__b"><svg class="ico ico--22" viewBox="0 0 24 24"><use href="#i-plan"/></svg>Квартира</span></label>
-            <label class="opt"><input type="radio" name="obj" value="house">
-              <span class="opt__b"><svg class="ico ico--22" viewBox="0 0 24 24"><use href="#i-facade"/></svg>Частный дом</span></label>
-            <label class="opt"><input type="radio" name="obj" value="comm">
-              <span class="opt__b"><svg class="ico ico--22" viewBox="0 0 24 24"><use href="#i-shop"/></svg>Коммерция</span></label>
-            <label class="opt"><input type="radio" name="obj" value="land">
-              <span class="opt__b"><svg class="ico ico--22" viewBox="0 0 24 24"><use href="#i-tree"/></svg>Ландшафт</span></label>
+      <form class="wiz" id="calcForm" novalidate>
+        <header class="wiz__head">
+          <div class="wiz__meta">
+            <span class="wiz__count">Шаг <b id="wizNow">1</b> из <span id="wizTotal">5</span></span>
+            <span class="wiz__title" id="wizTitle">Тип объекта</span>
           </div>
-        </fieldset>
+          <div class="wiz__bar"><i id="wizBar"></i></div>
+        </header>
 
-        <fieldset class="cgroup">
-          <legend><span class="cgroup__n">2</span>Площадь объекта</legend>
-          <div class="area">
-            <input class="area__range" type="range" id="areaRange" min="20" max="1000" step="5" value="90"
-                   aria-label="Площадь в квадратных метрах">
-            <div class="area__num">
-              <input type="number" id="areaNum" min="20" max="1000" step="1" value="90" aria-label="Площадь, м²">
-              <span>м²</span>
+        <div class="wiz__body">
+          <section class="step is-on" data-title="Тип объекта">
+            <div class="opts opts--4">
+              <label class="opt"><input type="radio" name="obj" value="flat" checked>
+                <span class="opt__b"><svg class="ico ico--22" viewBox="0 0 24 24"><use href="#i-plan"/></svg>Квартира</span></label>
+              <label class="opt"><input type="radio" name="obj" value="house">
+                <span class="opt__b"><svg class="ico ico--22" viewBox="0 0 24 24"><use href="#i-facade"/></svg>Частный дом</span></label>
+              <label class="opt"><input type="radio" name="obj" value="comm">
+                <span class="opt__b"><svg class="ico ico--22" viewBox="0 0 24 24"><use href="#i-shop"/></svg>Коммерция</span></label>
+              <label class="opt"><input type="radio" name="obj" value="land">
+                <span class="opt__b"><svg class="ico ico--22" viewBox="0 0 24 24"><use href="#i-tree"/></svg>Ландшафт</span></label>
             </div>
-          </div>
-          <div class="area__hint" id="areaHint">Скидка за объём начинается со 150 м²</div>
-        </fieldset>
+          </section>
 
-        <fieldset class="cgroup">
-          <legend><span class="cgroup__n">3</span>Пакет проектирования</legend>
-          <div class="opts opts--3">
-            <label class="opt opt--pkg"><input type="radio" name="pkg" value="opt">
-              <span class="opt__b"><b>Оптимальный</b><i>от 1000 ₸/м²</i><small>Планировки и базовый комплект чертежей</small></span></label>
-            <label class="opt opt--pkg"><input type="radio" name="pkg" value="classic" checked>
-              <span class="opt__b"><b>Классический</b><i>от 4000 ₸/м²</i><small>Полный проект с 3D-визуализацией</small></span></label>
-            <label class="opt opt--pkg"><input type="radio" name="pkg" value="premium">
-              <span class="opt__b"><b>Премиум</b><i>от 8000 ₸/м²</i><small>Проект «под ключ» с надзором</small></span></label>
-          </div>
-        </fieldset>
+          <section class="step" data-title="Площадь объекта">
+            <div class="area">
+              <input class="area__range" type="range" id="areaRange" min="20" max="1000" step="5" value="90"
+                     aria-label="Площадь в квадратных метрах">
+              <div class="area__num">
+                <input type="number" id="areaNum" min="20" max="1000" step="1" value="90" aria-label="Площадь, м²">
+                <span>м²</span>
+              </div>
+            </div>
+            <div class="area__hint" id="areaHint">Скидка за объём начинается со 150 м²</div>
+          </section>
 
-        <fieldset class="cgroup cgroup--fold">
-          <details class="fold" id="optFold">
-            <summary>
-              <span class="cgroup__n">4</span>
-              Дополнительно и сроки
-              <b class="fold__c" id="optCount"></b>
-              <svg class="ico ico--18 fold__x" viewBox="0 0 24 24"><use href="#i-chevron"/></svg>
-            </summary>
-          <div class="opts opts--2" id="optRow">
-            <label class="opt opt--chk"><input type="checkbox" name="opt" value="viz">
-              <span class="opt__b"><span class="opt__t">3D-визуализация всех помещений</span><i data-price="viz"></i></span></label>
-            <label class="opt opt--chk"><input type="checkbox" name="opt" value="walls">
-              <span class="opt__b"><span class="opt__t">Развёртки стен и раскладка плитки</span><i data-price="walls"></i></span></label>
-            <label class="opt opt--chk"><input type="checkbox" name="opt" value="supervision">
-              <span class="opt__b"><span class="opt__t">Авторский надзор на объекте</span><i data-price="supervision"></i></span></label>
-            <label class="opt opt--chk"><input type="checkbox" name="opt" value="furniture">
-              <span class="opt__b"><span class="opt__t">Индивидуальная мебель и узлы</span><i data-price="furniture"></i></span></label>
-            <label class="opt opt--chk"><input type="checkbox" name="opt" value="facade">
-              <span class="opt__b"><span class="opt__t">Дизайн экстерьера / фасад</span><i data-price="facade"></i></span></label>
-            <label class="opt opt--chk"><input type="checkbox" name="opt" value="landscape">
-              <span class="opt__b"><span class="opt__t">Благоустройство территории</span><i data-price="landscape"></i></span></label>
-          </div>
-            <p class="fold__sub">Сроки</p>
+          <section class="step" data-title="Пакет проектирования">
+            <div class="opts opts--3">
+              <label class="opt opt--pkg"><input type="radio" name="pkg" value="opt">
+                <span class="opt__b"><b>Оптимальный</b><i>от 1000 ₸/м²</i><small>Планировки и базовый комплект чертежей</small></span></label>
+              <label class="opt opt--pkg"><input type="radio" name="pkg" value="classic" checked>
+                <span class="opt__b"><b>Классический</b><i>от 4000 ₸/м²</i><small>Полный проект с 3D-визуализацией</small></span></label>
+              <label class="opt opt--pkg"><input type="radio" name="pkg" value="premium">
+                <span class="opt__b"><b>Премиум</b><i>от 8000 ₸/м²</i><small>Проект «под ключ» с надзором</small></span></label>
+            </div>
+          </section>
+
+          <section class="step" data-title="Дополнительно">
+            <div class="opts opts--2" id="optRow">
+              <label class="opt opt--chk"><input type="checkbox" name="opt" value="viz">
+                <span class="opt__b"><span class="opt__t">3D-визуализация всех помещений</span><i data-price="viz"></i></span></label>
+              <label class="opt opt--chk"><input type="checkbox" name="opt" value="walls">
+                <span class="opt__b"><span class="opt__t">Развёртки стен и раскладка плитки</span><i data-price="walls"></i></span></label>
+              <label class="opt opt--chk"><input type="checkbox" name="opt" value="supervision">
+                <span class="opt__b"><span class="opt__t">Авторский надзор на объекте</span><i data-price="supervision"></i></span></label>
+              <label class="opt opt--chk"><input type="checkbox" name="opt" value="furniture">
+                <span class="opt__b"><span class="opt__t">Индивидуальная мебель и узлы</span><i data-price="furniture"></i></span></label>
+              <label class="opt opt--chk"><input type="checkbox" name="opt" value="facade">
+                <span class="opt__b"><span class="opt__t">Дизайн экстерьера / фасад</span><i data-price="facade"></i></span></label>
+              <label class="opt opt--chk"><input type="checkbox" name="opt" value="landscape">
+                <span class="opt__b"><span class="opt__t">Благоустройство территории</span><i data-price="landscape"></i></span></label>
+            </div>
+            <p class="wiz__sub">Сроки</p>
             <div class="opts opts--2">
-            <label class="opt"><input type="radio" name="urg" value="normal" checked>
-              <span class="opt__b"><span class="opt__t">Стандартный срок</span></span></label>
-            <label class="opt"><input type="radio" name="urg" value="fast">
-              <span class="opt__b"><span class="opt__t">Ускоренно <i>+20%</i></span></span></label>
-          </details>
-        </fieldset>
+              <label class="opt"><input type="radio" name="urg" value="normal" checked>
+                <span class="opt__b"><span class="opt__t">Стандартный срок</span></span></label>
+              <label class="opt"><input type="radio" name="urg" value="fast">
+                <span class="opt__b"><span class="opt__t">Ускоренно <i>+20%</i></span></span></label>
+            </div>
+          </section>
 
+          <section class="step" data-title="Куда отправить расчёт">
+            <div class="wiz__fields">
+              <div class="field">
+                <label for="cName">Имя</label>
+                <input id="cName" type="text" placeholder="Как к вам обращаться" autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="cPhone">Телефон</label>
+                <input id="cPhone" type="tel" placeholder="+7 (___) ___ __ __" autocomplete="tel">
+              </div>
+            </div>
+            <p class="wiz__note" id="calcNote">Менеджер перезвонит с точной сметой после бесплатного замера.</p>
+          </section>
+
+          <section class="step step--res" data-title="Ваш расчёт">
+            <div class="res">
+              <span class="res__label">Предварительная стоимость</span>
+              <div class="res__price"><output id="sumPrice">—</output></div>
+              <div class="res__per" id="sumPer"></div>
+              <dl class="res__rows" id="sumRows"></dl>
+              <div class="res__bar">
+                <div class="res__bar-i"><svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-clock"/></svg><span id="sumTerm">—</span></div>
+                <div class="res__bar-i"><svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-ruler"/></svg><span id="sumArea">—</span></div>
+              </div>
+              <p class="res__done">
+                <svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-check"/></svg>
+                <span id="resDone">Заявка у менеджера — перезвоним в течение рабочего дня</span>
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <footer class="wiz__nav">
+          <button type="button" class="wiz__back" id="wizBack">Назад</button>
+          <button type="button" class="btn" id="wizNext">Далее</button>
+        </footer>
       </form>
-
-      <!-- ---- Итог + отправка в Telegram ---- -->
-      <aside class="calc__sum is-locked" id="calcSum">
-        <div class="sum__reveal" id="sumReveal" aria-hidden="true">
-          <div class="sum__top">
-            <span class="sum__label">Предварительная стоимость</span>
-            <div class="sum__price"><output id="sumPrice">—</output></div>
-            <div class="sum__per" id="sumPer"></div>
-          </div>
-
-          <dl class="sum__rows" id="sumRows"></dl>
-
-          <div class="sum__bar">
-            <div class="sum__bar-i"><svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-clock"/></svg><span id="sumTerm">—</span></div>
-            <div class="sum__bar-i"><svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-ruler"/></svg><span id="sumArea">—</span></div>
-          </div>
-        </div>
-
-        <div class="gate" id="calcGate">
-          <span class="gate__tag">Расчёт готов</span>
-          <p class="gate__t">Оставьте контакты — покажем стоимость и срок</p>
-          <p class="gate__d">И перезвоним с точной сметой после бесплатного замера.</p>
-          <div class="field field--sm">
-            <label for="cName">Имя</label>
-            <input id="cName" type="text" placeholder="Как к вам обращаться" autocomplete="name">
-          </div>
-          <div class="field field--sm">
-            <label for="cPhone">Телефон</label>
-            <input id="cPhone" type="tel" placeholder="+7 (___) ___ __ __" autocomplete="tel">
-          </div>
-          <button class="btn btn--full" type="button" id="calcSend">
-            <svg class="ico" viewBox="0 0 24 24"><use href="#i-calc"/></svg>
-            Показать расчёт
-          </button>
-          <p class="sum__note" id="calcNote">Расчёт ориентировочный. Точная смета — после замера.</p>
-        </div>
-
-        <p class="sum__done">
-          <svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-check"/></svg>
-          Заявка у менеджера — перезвоним в течение рабочего дня
-        </p>
-      </aside>
     </div>
-  </div>
-</section>
+  </section>
 
 <!-- ============ PRICING ============ -->
 <section class="sec" id="pricing">
@@ -927,7 +918,7 @@
 }
 </script>
 
-<script src="config.js?v=4.0"></script>
-<script src="script.js?v=4.0"></script>
+<script src="config.js?v=4.6"></script>
+<script src="script.js?v=4.6"></script>
 </body>
 </html>

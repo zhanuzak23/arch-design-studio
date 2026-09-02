@@ -155,15 +155,28 @@
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* мобильное меню */
+  /* мобильное меню — шторка справа */
   var burger = $('#burger'), nav = $('#nav');
-  function closeNav() { nav.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false'); }
-  burger.addEventListener('click', function () {
-    var open = nav.classList.toggle('is-open');
+  var veil = document.createElement('div');
+  veil.className = 'nav-veil';
+  document.body.appendChild(veil);
+
+  function setNav(open) {
+    nav.classList.toggle('is-open', open);
+    veil.classList.toggle('is-on', open);
+    document.body.classList.toggle('is-nav-open', open);
     burger.setAttribute('aria-expanded', String(open));
-  });
+  }
+  function closeNav() { setNav(false); }
+
+  burger.addEventListener('click', function () { setNav(!nav.classList.contains('is-open')); });
+  veil.addEventListener('click', closeNav);
   nav.addEventListener('click', function (e) { if (e.target.tagName === 'A') closeNav(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
+  var MOBILE_NAV = window.matchMedia('(max-width:900px)');
+  if (MOBILE_NAV.addEventListener) {
+    MOBILE_NAV.addEventListener('change', function (e) { if (!e.matches) closeNav(); });
+  }
 
   /* активный пункт навигации */
   var navLinks = $$('a', nav);
@@ -416,15 +429,9 @@
       : 'Скидка за объём начинается со 150 м²';
     areaHint.classList.toggle('is-on', !!r.disc);
 
-    var optCount = $('#optCount');
-    if (optCount) optCount.textContent = r.chosen.length ? '· выбрано ' + r.chosen.length : '';
   }
 
   if (form) {
-    /* на десктопе доп. опции раскрыты, на мобильном — свёрнуты ради длины */
-    var optFold = $('#optFold');
-    if (optFold) optFold.open = !window.matchMedia('(max-width:620px)').matches;
-
     setArea(CALC.area.def);
 
     form.addEventListener('change', function (e) {
@@ -460,51 +467,58 @@
   var prices = $$('.price__more');
   function syncPrices() { prices.forEach(function (d) { d.open = !MOBILE.matches; }); }
 
-  /* кнопки «Рассчитать» в тарифах выбирают пакет в калькуляторе */
-  $$('[data-pkg]').forEach(function (a) {
-    a.addEventListener('click', function () {
-      var el = form.querySelector('input[name="pkg"][value="' + a.getAttribute('data-pkg') + '"]');
-      if (el) { el.checked = true; render(); }
-    });
-  });
+  /* ---------------------------------------------------------
+     Калькулятор как пошаговая форма
+     --------------------------------------------------------- */
+  var steps   = $$('.step');
+  var wizNow  = $('#wizNow'),  wizTotal = $('#wizTotal');
+  var wizTitle= $('#wizTitle'), wizBar  = $('#wizBar');
+  var wizBack = $('#wizBack'),  wizNext = $('#wizNext');
+  var cNameEl = $('#cName'),    cPhoneEl = $('#cPhone');
+  var calcNote = $('#calcNote'), resDone = $('#resDone');
+  var CONTACTS = steps.length - 2;          /* предпоследний шаг — контакты */
+  var RESULT   = steps.length - 1;          /* последний — расчёт */
+  var cur = 0, sending = false;
 
-  /* отправка расчёта */
-  var cName = $('#cName'), cPhone = $('#cPhone'), calcSend = $('#calcSend');
-  maskPhone(cPhone);
-  maskPhone($('#fphone'));
+  function showStep(n) {
+    cur = Math.max(0, Math.min(RESULT, n));
+    steps.forEach(function (el, i) { el.classList.toggle('is-on', i === cur); });
 
-  var calcSum = $('#calcSum');
-  var UNLOCK_KEY = 'arch_calc_unlocked';
+    var isRes = (cur === RESULT);
+    var count = $('.wiz__count');
+    if (count)    count.hidden = isRes;          /* результат — не шаг */
+    if (wizNow)   wizNow.textContent = cur + 1;
+    if (wizTotal) wizTotal.textContent = RESULT; /* шагов столько, сколько заполняет человек */
+    if (wizTitle) wizTitle.textContent = steps[cur].getAttribute('data-title') || '';
+    if (wizBar)   wizBar.style.width = (isRes ? 100 : (cur + 1) / RESULT * 100) + '%';
 
-  function unlockCalc() {
-    if (!calcSum) return;
-    calcSum.classList.remove('is-locked');
-    var reveal = $('#sumReveal');
-    if (reveal) reveal.removeAttribute('aria-hidden');
+    if (wizBack) wizBack.hidden = (cur === 0 || cur === RESULT);
+    if (wizNext) {
+      wizNext.hidden = (cur === RESULT);
+      wizNext.textContent = (cur === CONTACTS) ? 'Показать расчёт' : 'Далее';
+    }
   }
 
-  /* если контакты уже оставляли — не просим второй раз */
-  try { if (localStorage.getItem(UNLOCK_KEY)) unlockCalc(); } catch (e) { /* приватный режим */ }
+  function goNext() {
+    if (sending) return;
 
-  if (calcSend) {
-    calcSend.addEventListener('click', function () {
-      var digits = (cPhone.value || '').replace(/\D/g, '');
-      calcNote.classList.remove('is-ok', 'is-err');
-
+    if (cur === CONTACTS) {
+      var digits = (cPhoneEl.value || '').replace(/\D/g, '');
       if (digits.length !== 11) {
-        cPhone.classList.add('is-err');
-        cPhone.focus();
+        cPhoneEl.classList.add('is-err');
+        cPhoneEl.focus();
         calcNote.textContent = 'Укажите телефон — на него перезвонит менеджер.';
         calcNote.classList.add('is-err');
         return;
       }
-      cPhone.classList.remove('is-err');
+      cPhoneEl.classList.remove('is-err');
+      calcNote.classList.remove('is-err');
 
       var r = lastCalc || compute();
       var payload = {
         source: 'Калькулятор на сайте',
-        name: cName.value.trim() || '—',
-        phone: cPhone.value,
+        name: cNameEl.value.trim() || '—',
+        phone: cPhoneEl.value,
         type: r.obj.label,
         calc: [
           ['Площадь', r.area + ' м²'],
@@ -516,26 +530,46 @@
         ]
       };
 
-      calcSend.disabled = true;
-      calcSend.textContent = 'Отправляем…';
+      sending = true;
+      wizNext.disabled = true;
+      wizNext.textContent = 'Отправляем…';
 
       sendLead(payload).then(function (res) {
-        unlockCalc();
-        try { localStorage.setItem(UNLOCK_KEY, '1'); } catch (e) {}
-        toast('Расчёт открыт, заявка отправлена');
         track('lead_calc', { via: res.via, pkg: r.pkg.label, area: r.area, min: Math.round(r.min) });
+        if (resDone) resDone.textContent = 'Заявка у менеджера — перезвоним в течение рабочего дня';
       }).catch(function (err) {
-        /* заявка не ушла — но расчёт всё равно показываем, иначе это выглядит
-           как обман: человек оставил контакты и ничего не получил */
-        unlockCalc();
-        toast('Расчёт открыт');
+        /* расчёт показываем в любом случае: контакты человек уже оставил */
+        if (resDone) resDone.textContent = 'Расчёт готов. Если не перезвоним — наберите нас сами';
         console.error('[ARCH] lead error:', err);
       }).then(function () {
-        calcSend.disabled = false;
-        calcSend.innerHTML = '<svg class="ico" viewBox="0 0 24 24"><use href="#i-calc"/></svg>Показать расчёт';
+        sending = false;
+        wizNext.disabled = false;
+        render();
+        showStep(RESULT);
+        toast('Расчёт готов');
       });
-    });
+      return;
+    }
+
+    showStep(cur + 1);
   }
+
+  maskPhone(cPhoneEl);
+  maskPhone($('#fphone'));
+
+  if (wizNext) wizNext.addEventListener('click', goNext);
+  if (wizBack) wizBack.addEventListener('click', function () { showStep(cur - 1); });
+  if (steps.length) showStep(0);
+
+  /* кнопки «Рассчитать» в тарифах ведут на нужный шаг */
+
+  $$('[data-pkg]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var el = form.querySelector('input[name="pkg"][value="' + a.getAttribute('data-pkg') + '"]');
+      if (el) { el.checked = true; render(); }
+      if (steps.length) showStep(0);
+    });
+  });
 
   /* ---------------------------------------------------------
      Кейсы: фильтр + «показать ещё» + лайтбокс
