@@ -26,7 +26,7 @@
 
 <link rel="preload" href="assets/fonts/SFProDisplay-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/SFProDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=4.6">
+<link rel="stylesheet" href="styles.css?v=5.2">
 
 <!-- Анимации включаются только если работает JS. Без него страница
      просто отрисована — контент не может остаться невидимым. -->
@@ -358,8 +358,8 @@
       <span class="tag">04 — Калькулятор</span>
       <h2 class="h2">Рассчитайте стоимость проекта</h2>
       <p class="sec__lead">
-        Ориентировочный расчёт по действующему прайсу студии. Итоговую смету
-        подтверждаем после бесплатного замера — заявка уходит нам в Telegram сразу из калькулятора.
+        Базовые ставки открыты ниже, в тарифах. Здесь считаем под ваш объект: с учётом
+        площади, типа помещения и нужных работ. Итоговую смету подтверждаем после бесплатного замера.
       </p>
     </div>
 
@@ -442,7 +442,9 @@
               </div>
               <div class="field">
                 <label for="cPhone">Телефон</label>
-                <input id="cPhone" type="tel" placeholder="+7 (___) ___ __ __" autocomplete="tel">
+                <input id="cPhone" type="tel" placeholder="+7 (___) ___ __ __"
+                       autocomplete="tel" aria-describedby="cPhoneErr">
+                <p class="field__err" id="cPhoneErr" hidden></p>
               </div>
             </div>
             <p class="wiz__note" id="calcNote">Менеджер перезвонит с точной сметой после бесплатного замера.</p>
@@ -462,6 +464,10 @@
                 <svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-check"/></svg>
                 <span id="resDone">Заявка у менеджера — перезвоним в течение рабочего дня</span>
               </p>
+              <button class="res__again" type="button" id="wizAgain">
+                <svg class="ico ico--16" viewBox="0 0 24 24"><use href="#i-calc"/></svg>
+                Изменить параметры
+              </button>
             </div>
           </section>
         </div>
@@ -553,12 +559,12 @@
       <p class="sec__lead">Жилые, коммерческие и общественные объекты, реализованные студией.</p>
     </div>
 
-    <div class="filters reveal" role="tablist" aria-label="Фильтр проектов">
-      <button class="chip is-on" data-f="all" role="tab" aria-selected="true">Все проекты</button>
-      <button class="chip" data-f="flat" role="tab" aria-selected="false">Квартиры</button>
-      <button class="chip" data-f="house" role="tab" aria-selected="false">Дома</button>
-      <button class="chip" data-f="comm" role="tab" aria-selected="false">Коммерция</button>
-      <button class="chip" data-f="land" role="tab" aria-selected="false">Ландшафт</button>
+    <div class="filters reveal" role="group" aria-label="Фильтр проектов по типу">
+      <button class="chip is-on" data-f="all" aria-pressed="true">Все проекты</button>
+      <button class="chip" data-f="flat" aria-pressed="false">Квартиры</button>
+      <button class="chip" data-f="house" aria-pressed="false">Дома</button>
+      <button class="chip" data-f="comm" aria-pressed="false">Коммерция</button>
+      <button class="chip" data-f="land" aria-pressed="false">Ландшафт</button>
     </div>
 
     <div class="cases" id="casesGrid">
@@ -609,6 +615,12 @@
           <span class="case__zoom"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-arrow-ur"/></svg></span></div>
         <div class="case__b"><h3>Офис компании</h3><p>Планировка · интерьер · рабочий проект</p></div>
       </article>
+    </div>
+
+    <div class="cases__empty" id="casesEmpty">
+      <b>В этой категории пока нет опубликованных проектов</b>
+      <p>Мы показываем только сданные объекты. Покажем похожие работы по запросу.</p>
+      <button class="btn btn--ghost" type="button" data-f-reset>Показать все проекты</button>
     </div>
 
     <button class="more" id="casesMore" type="button">
@@ -734,11 +746,15 @@
     <form class="form reveal" id="leadForm" novalidate>
       <div class="field">
         <label for="fname">Ваше имя</label>
-        <input id="fname" name="name" type="text" placeholder="Как к вам обращаться" autocomplete="name" required>
+        <input id="fname" name="name" type="text" placeholder="Как к вам обращаться"
+               autocomplete="name" required aria-describedby="fnameErr">
+        <p class="field__err" id="fnameErr" hidden></p>
       </div>
       <div class="field">
         <label for="fphone">Телефон</label>
-        <input id="fphone" name="phone" type="tel" placeholder="+7 (___) ___ __ __" autocomplete="tel" required>
+        <input id="fphone" name="phone" type="tel" placeholder="+7 (___) ___ __ __"
+               autocomplete="tel" required aria-describedby="fphoneErr">
+        <p class="field__err" id="fphoneErr" hidden></p>
       </div>
       <div class="field">
         <label for="ftype">Тип объекта</label>
@@ -918,7 +934,7 @@
 }
 </script>
 
-<script src="config.js?v=4.6"></script>
-<script src="script.js?v=4.6"></script>
+<script src="config.js?v=5.2"></script>
+<script src="script.js?v=5.2"></script>
 </body>
 </html>

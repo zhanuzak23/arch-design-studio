@@ -36,6 +36,24 @@
     toastT = setTimeout(function () { toastEl.classList.remove('is-on'); }, 4200);
   }
 
+  /* Ошибка поля: что произошло, почему и как исправить — текстом, а не
+     только цветом рамки (цвет не читают скринридеры и дальтоники). */
+  function fieldError(input, msg) {
+    if (!input) return;
+    var box = document.getElementById(input.id + 'Err');
+    var bad = !!msg;
+    input.classList.toggle('is-err', bad);
+    input.setAttribute('aria-invalid', String(bad));
+    if (box) { box.textContent = msg || ''; box.hidden = !bad; }
+    if (bad) input.focus();
+  }
+  function clearOnInput(input) {
+    if (!input) return;
+    input.addEventListener('input', function () {
+      if (input.classList.contains('is-err')) fieldError(input, '');
+    });
+  }
+
   function maskPhone(input) {
     if (!input) return;
     input.addEventListener('input', function () {
@@ -505,14 +523,12 @@
     if (cur === CONTACTS) {
       var digits = (cPhoneEl.value || '').replace(/\D/g, '');
       if (digits.length !== 11) {
-        cPhoneEl.classList.add('is-err');
-        cPhoneEl.focus();
-        calcNote.textContent = 'Укажите телефон — на него перезвонит менеджер.';
-        calcNote.classList.add('is-err');
+        fieldError(cPhoneEl, digits.length
+          ? 'Номер неполный. Нужно 11 цифр, например +7 700 123 45 67'
+          : 'Введите телефон — на него перезвонит менеджер');
         return;
       }
-      cPhoneEl.classList.remove('is-err');
-      calcNote.classList.remove('is-err');
+      fieldError(cPhoneEl, '');
 
       var r = lastCalc || compute();
       var payload = {
@@ -556,9 +572,17 @@
 
   maskPhone(cPhoneEl);
   maskPhone($('#fphone'));
+  [cPhoneEl, $('#fphone'), $('#fname')].forEach(clearOnInput);
 
   if (wizNext) wizNext.addEventListener('click', goNext);
   if (wizBack) wizBack.addEventListener('click', function () { showStep(cur - 1); });
+
+  /* с экрана результата можно вернуться и пересчитать — иначе это тупик */
+  var wizAgain = $('#wizAgain');
+  if (wizAgain) wizAgain.addEventListener('click', function () {
+    showStep(0);
+    track('calc_recalculate');
+  });
   if (steps.length) showStep(0);
 
   /* кнопки «Рассчитать» в тарифах ведут на нужный шаг */
@@ -594,7 +618,17 @@
       casesMore.classList.toggle('is-on', left > 0);
       if (casesLeft) casesLeft.textContent = left > 0 ? '(' + left + ')' : '';
     }
+
+    var empty = $('#casesEmpty');
+    if (empty) empty.classList.toggle('is-on', matched.length === 0);
   }
+
+  /* сброс фильтра из пустого состояния */
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest || !e.target.closest('[data-f-reset]')) return;
+    var all = document.querySelector('.chip[data-f="all"]');
+    if (all) all.click();
+  });
 
   chips.forEach(function (chip) {
     chip.addEventListener('click', function () {
@@ -603,7 +637,7 @@
       chips.forEach(function (c) {
         var on = c === chip;
         c.classList.toggle('is-on', on);
-        c.setAttribute('aria-selected', String(on));
+        c.setAttribute('aria-pressed', String(on));
       });
       applyCases();
       track('cases_filter', { filter: currentFilter });
@@ -671,12 +705,17 @@
     leadForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var name = leadForm.elements.name, phone = leadForm.elements.phone;
-      var ok = true;
-
-      if (!name.value.trim()) { name.classList.add('is-err'); ok = false; } else name.classList.remove('is-err');
       var digits = phone.value.replace(/\D/g, '');
-      if (digits.length !== 11) { phone.classList.add('is-err'); ok = false; } else phone.classList.remove('is-err');
-      if (!ok) { (leadForm.querySelector('.is-err') || name).focus(); return; }
+      var phoneMsg = digits.length === 11 ? ''
+        : (digits.length ? 'Номер неполный. Нужно 11 цифр, например +7 700 123 45 67'
+                         : 'Введите телефон — мы позвоним по нему');
+      var nameMsg = name.value.trim() ? '' : 'Напишите, как к вам обращаться';
+
+      /* сначала гасим верные поля, потом подсвечиваем первое ошибочное */
+      if (!nameMsg) fieldError(name, '');
+      if (!phoneMsg) fieldError(phone, '');
+      if (nameMsg) { fieldError(name, nameMsg); if (phoneMsg) fieldError(phone, phoneMsg); return; }
+      if (phoneMsg) { fieldError(phone, phoneMsg); return; }
 
       var payload = {
         source: 'Форма «Бесплатный замер»',
