@@ -26,7 +26,7 @@
 
 <link rel="preload" href="assets/fonts/SFProDisplay-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/SFProDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=5.2">
+<link rel="stylesheet" href="styles.css?v=6.0">
 
 <!-- Анимации включаются только если работает JS. Без него страница
      просто отрисована — контент не может остаться невидимым. -->
@@ -69,7 +69,7 @@
   <g id="i-close"><path d="m6 6 12 12M18 6 6 18"/></g>
   <g id="i-instagram"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.4 6.7h.01"/></g>
   <g id="i-telegram"><path d="m21 4.5-3 15-6-4.5-3 3v-4.5l9-7.5-11 6-4-1.5 18-6Z"/></g>
-  <g id="i-whatsapp"><path d="M3.5 20.5 5 16.4A8.2 8.2 0 1 1 8.2 19.6L3.5 20.5Z"/><path d="M9 9c.3 2 2 3.7 4 4l1-1.3 2 .9v1.3c0 .6-.6 1.1-1.4 1A7.6 7.6 0 0 1 8 9.4c-.1-.8.4-1.4 1-1.4h1.3l.9 2L9 9Z"/></g>
+  <g id="i-whatsapp"><path d="M7.8 18.87A8.4 8.4 0 1 0 4.88 16.05L3.8 20.4Z"/><path d="M9.4 7.9h1.1l.8 2-.9.7a5.8 5.8 0 0 0 2.9 2.9l.7-.9 2 .8v1.1c0 .6-.5 1-1.1 1A7.5 7.5 0 0 1 8.4 9c0-.6.4-1.1 1-1.1Z"/></g>
 </defs>
 </svg>
 
@@ -568,54 +568,35 @@
     </div>
 
     <div class="cases" id="casesGrid">
-      <article class="case reveal" data-c="flat" data-title="Квартира в современном стиле"
-        data-meta="Кызылорда · 96 м² · 2024"
-        data-scope="Обмер и три варианта планировки|Полный комплект рабочих чертежей|3D-визуализация всех помещений|Подбор материалов и сводная ведомость">
-        <div class="case__img case__img--a"><span class="case__area">96 м²</span>
-          <span class="case__zoom"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-arrow-ur"/></svg></span></div>
-        <div class="case__b"><h3>Квартира в современном стиле</h3><p>Дизайн-проект · 3D · рабочая документация</p></div>
+      <article class="case reveal" data-c="flat"
+        data-title="Квартира в ЖК Hayat Apartments"
+        data-meta="Алматы · дизайн-проект"
+        data-scope="Планировочные решения и рабочие чертежи|3D-визуализация всех помещений|Спальни, гостиная, детская, кухня-столовая|Санузлы и гардеробные системы"
+        data-gallery="hayat-1|hayat-2|hayat-3|hayat-4|hayat-5|hayat-6">
+        <div class="case__img">
+          <img src="assets/cases/hayat-1-800.jpg"
+               srcset="assets/cases/hayat-1-800.jpg 800w, assets/cases/hayat-1-1600.jpg 1600w"
+               sizes="(max-width:620px) 92vw, (max-width:1020px) 46vw, 31vw"
+               alt="Квартира в ЖК Hayat Apartments" loading="lazy" decoding="async">
+          <span class="case__zoom"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-arrow-ur"/></svg></span>
+        </div>
+        <div class="case__b"><h3>Квартира в ЖК Hayat Apartments</h3><p>Алматы · дизайн-проект</p></div>
       </article>
 
-      <article class="case reveal" data-c="house" data-title="Частный дом, полный цикл"
-        data-meta="Кызылорда · 240 м² · 2023–2024"
-        data-scope="Архитектурная концепция и фасады|Планировки двух этажей|Интерьер всех помещений|Авторский надзор до сдачи">
-        <div class="case__img case__img--b"><span class="case__area">240 м²</span>
-          <span class="case__zoom"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-arrow-ur"/></svg></span></div>
-        <div class="case__b"><h3>Частный дом, полный цикл</h3><p>Архитектура · интерьер · авторский надзор</p></div>
+      <article class="case reveal" data-c="comm"
+        data-title="Офис на улице Ибраева, 29"
+        data-meta="Двухэтажный офис · дизайн-проект"
+        data-scope="Обмерные планы двух этажей|Расстановка мебели, полы, потолки, освещение|Электрические схемы|3D-визуализация: ресепшн, переговорная, open space, кабинеты"
+        data-gallery="office-1|office-2|office-3|office-4|office-5|office-6">
+        <div class="case__img">
+          <img src="assets/cases/office-1-800.jpg"
+               srcset="assets/cases/office-1-800.jpg 800w, assets/cases/office-1-1600.jpg 1600w"
+               sizes="(max-width:620px) 92vw, (max-width:1020px) 46vw, 31vw"
+               alt="Офис на улице Ибраева, 29" loading="lazy" decoding="async">
+          <span class="case__zoom"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-arrow-ur"/></svg></span>
+        </div>
+        <div class="case__b"><h3>Офис на улице Ибраева, 29</h3><p>Двухэтажный офис · дизайн-проект</p></div>
       </article>
-
-      <article class="case reveal" data-c="comm" data-title="Кафе в центре города"
-        data-meta="Кызылорда · 180 м² · 2024"
-        data-scope="Концепция и зонирование зала|Барная группа и мебель на заказ|Сценарии освещения|Рабочая документация">
-        <div class="case__img case__img--c"><span class="case__area">180 м²</span>
-          <span class="case__zoom"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-arrow-ur"/></svg></span></div>
-        <div class="case__b"><h3>Кафе в центре города</h3><p>Концепция · зонирование · мебель на заказ</p></div>
-      </article>
-
-      <article class="case reveal" data-c="comm" data-title="Салон красоты"
-        data-meta="Кызылорда · 120 м² · 2023"
-        data-scope="Планировка рабочих зон|Освещение рабочих мест|Подбор отделки и оборудования|Комплектация под ключ">
-        <div class="case__img case__img--d"><span class="case__area">120 м²</span>
-          <span class="case__zoom"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-arrow-ur"/></svg></span></div>
-        <div class="case__b"><h3>Салон красоты</h3><p>Интерьер · освещение · комплектация</p></div>
-      </article>
-
-      <article class="case reveal" data-c="land" data-title="Благоустройство участка"
-        data-meta="Кызылординская обл. · 8 соток · 2024"
-        data-scope="Генплан участка и зонирование|Дорожки, площадки, малые формы|Дендроплан и полив|Ландшафтное освещение">
-        <div class="case__img case__img--e"><span class="case__area">8 соток</span>
-          <span class="case__zoom"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-arrow-ur"/></svg></span></div>
-        <div class="case__b"><h3>Благоустройство участка</h3><p>Ландшафт · озеленение · малые формы</p></div>
-      </article>
-
-      <article class="case reveal" data-c="comm" data-title="Офис компании"
-        data-meta="Кызылорда · 320 м² · 2023"
-        data-scope="Планировка open space и переговорных|Инженерия и слаботочка в проекте|Корпоративная айдентика в интерьере|Рабочий проект и надзор">
-        <div class="case__img case__img--f"><span class="case__area">320 м²</span>
-          <span class="case__zoom"><svg class="ico ico--18" viewBox="0 0 24 24"><use href="#i-arrow-ur"/></svg></span></div>
-        <div class="case__b"><h3>Офис компании</h3><p>Планировка · интерьер · рабочий проект</p></div>
-      </article>
-    </div>
 
     <div class="cases__empty" id="casesEmpty">
       <b>В этой категории пока нет опубликованных проектов</b>
@@ -681,6 +662,17 @@
           <h3>Оспанов Абылай<br>Қуанышбекұлы</h3>
           <p class="pers__r">Проектировщик</p>
           <p class="pers__t">Готовит рабочую документацию и следит за точностью реализации на объекте.</p>
+        </div>
+      </article>
+
+      <article class="pers reveal">
+        <div class="pers__ph">
+          <img src="assets/team/dias.jpg" alt="Диас Жанұзақ" width="662" height="827" loading="lazy">
+        </div>
+        <div class="pers__b">
+          <h3>Диас Жанұзақ</h3>
+          <p class="pers__r">Дизайнер</p>
+          <p class="pers__t">Работает над интерьерными решениями и подачей проектов студии.</p>
         </div>
       </article>
     </div>
@@ -832,7 +824,19 @@
 <!-- ============ CASE LIGHTBOX ============ -->
 <dialog class="lb" id="lightbox" aria-label="Проект">
   <button class="lb__x" id="lbClose" aria-label="Закрыть"><svg class="ico ico--20" viewBox="0 0 24 24"><use href="#i-close"/></svg></button>
-  <div class="lb__img" id="lbImg"></div>
+  <div class="lb__img" id="lbImg">
+    <img id="lbPhoto" src="" alt="">
+    <div class="lb__nav">
+      <button class="lb__arrow lb__arrow--prev" id="lbPrev" type="button" aria-label="Предыдущее фото">
+        <svg class="ico ico--20" viewBox="0 0 24 24"><use href="#i-chevron"/></svg>
+      </button>
+      <span class="lb__count" id="lbCount"></span>
+      <button class="lb__arrow lb__arrow--next" id="lbNext" type="button" aria-label="Следующее фото">
+        <svg class="ico ico--20" viewBox="0 0 24 24"><use href="#i-chevron"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="lb__thumbs" id="lbThumbs"></div>
   <div class="lb__b">
     <h3 id="lbTitle"></h3>
     <p class="lb__meta" id="lbMeta"></p>
@@ -934,7 +938,7 @@
 }
 </script>
 
-<script src="config.js?v=5.2"></script>
-<script src="script.js?v=5.2"></script>
+<script src="config.js?v=6.0"></script>
+<script src="script.js?v=6.0"></script>
 </body>
 </html>

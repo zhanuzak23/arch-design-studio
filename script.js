@@ -651,27 +651,72 @@
       track('cases_more');
     });
   }
+  /* фильтры имеют смысл только когда есть что фильтровать */
+  (function () {
+    var kinds = {};
+    cases.forEach(function (c) { kinds[c.getAttribute('data-c')] = 1; });
+    var list = Object.keys(kinds);
+    chips.forEach(function (c) {
+      var f = c.getAttribute('data-f');
+      c.hidden = (f !== 'all' && list.indexOf(f) === -1);
+    });
+    var bar = $('.filters');
+    if (bar) bar.hidden = list.length < 2;
+  })();
+
   if (MOBILE.addEventListener) MOBILE.addEventListener('change', applyCases);
   applyCases();
 
   syncPrices();
   if (MOBILE.addEventListener) MOBILE.addEventListener('change', syncPrices);
 
-  var lb = $('#lightbox'), lbImg = $('#lbImg'), lbTitle = $('#lbTitle'),
-      lbMeta = $('#lbMeta'), lbScope = $('#lbScope'), lbClose = $('#lbClose');
+  var lb = $('#lightbox'), lbPhoto = $('#lbPhoto'), lbTitle = $('#lbTitle'),
+      lbMeta = $('#lbMeta'), lbScope = $('#lbScope'), lbClose = $('#lbClose'),
+      lbThumbs = $('#lbThumbs'), lbCount = $('#lbCount'),
+      lbPrev = $('#lbPrev'), lbNext = $('#lbNext');
+  var gallery = [], shot = 0, lbAlt = '';
+
+  function showShot(n) {
+    if (!gallery.length) return;
+    shot = (n + gallery.length) % gallery.length;
+    lbPhoto.src = 'assets/cases/' + gallery[shot] + '-1600.jpg';
+    lbPhoto.alt = lbAlt + ' — кадр ' + (shot + 1) + ' из ' + gallery.length;
+    if (lbCount) lbCount.textContent = (shot + 1) + ' / ' + gallery.length;
+    $$('button', lbThumbs).forEach(function (b, i) { b.classList.toggle('is-on', i === shot); });
+  }
 
   function openCase(card) {
     if (!lb || !lb.showModal) return;
-    var imgClass = (card.querySelector('.case__img').className.match(/case__img--\w/) || [''])[0];
-    lbImg.className = 'lb__img case__img ' + imgClass;
-    lbTitle.textContent = card.getAttribute('data-title') || '';
+    lbAlt = card.getAttribute('data-title') || '';
+    lbTitle.textContent = lbAlt;
     lbMeta.textContent = card.getAttribute('data-meta') || '';
+
     lbScope.innerHTML = '';
     (card.getAttribute('data-scope') || '').split('|').forEach(function (t) {
       if (!t) return;
       var li = document.createElement('li'); li.textContent = t; lbScope.appendChild(li);
     });
+
+    gallery = (card.getAttribute('data-gallery') || '').split('|').filter(Boolean);
+    lbThumbs.innerHTML = '';
+    gallery.forEach(function (name, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Кадр ' + (i + 1));
+      var im = document.createElement('img');
+      im.src = 'assets/cases/' + name + '-800.jpg';
+      im.alt = '';
+      im.loading = 'lazy';
+      b.appendChild(im);
+      b.addEventListener('click', function () { showShot(i); });
+      lbThumbs.appendChild(b);
+    });
+    lbThumbs.hidden = gallery.length < 2;
+    if ($('.lb__nav')) $('.lb__nav').hidden = gallery.length < 2;
+
+    showShot(0);
     lb.showModal();
+    track('case_open', { project: lbAlt });
   }
 
   cases.forEach(function (card) {
@@ -682,10 +727,17 @@
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCase(card); }
     });
   });
+
   if (lb) {
     lbClose.addEventListener('click', function () { lb.close(); });
     lb.addEventListener('click', function (e) { if (e.target === lb) lb.close(); });
     $('#lbCta').addEventListener('click', function () { lb.close(); });
+    if (lbPrev) lbPrev.addEventListener('click', function () { showShot(shot - 1); });
+    if (lbNext) lbNext.addEventListener('click', function () { showShot(shot + 1); });
+    lb.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); showShot(shot - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); showShot(shot + 1); }
+    });
   }
 
   /* FAQ: открыт один вопрос за раз */
