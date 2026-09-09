@@ -26,7 +26,7 @@
 
 <link rel="preload" href="assets/fonts/SFProDisplay-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/SFProDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=6.0">
+<link rel="stylesheet" href="styles.css?v=7.2">
 
 <!-- Анимации включаются только если работает JS. Без него страница
      просто отрисована — контент не может остаться невидимым. -->
@@ -109,6 +109,11 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="hero">
+  <div class="hero__photo" aria-hidden="true">
+    <img src="assets/hero/bg-1200.jpg"
+         srcset="assets/hero/bg-800.jpg 800w, assets/hero/bg-1200.jpg 1200w, assets/hero/bg-2000.jpg 1916w"
+         sizes="100vw" alt="" fetchpriority="high" decoding="async">
+  </div>
   <div class="hero__bg" aria-hidden="true"></div>
   <div class="hero__glow" id="heroGlow" aria-hidden="true"></div>
 
@@ -145,44 +150,13 @@
     </div>
 
     <!-- архитектурный план: линейная графика с эффектом черчения -->
-    <div class="hero__art reveal" aria-hidden="true">
-      <svg class="plan" viewBox="0 0 560 460" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g class="plan__dim">
-          <path d="M60 34h440M60 28v12M500 28v12M280 28v12"/>
-          <path d="M30 64v352M24 64h12M24 416h12"/>
-        </g>
-        <g class="plan__walls">
-          <path d="M60 64h440v352H60z"/>
-          <path d="M60 214h150M240 214h120M300 64v150M420 214v202M210 214v202"/>
-          <path d="M300 316h120"/>
-        </g>
-        <g class="plan__thin">
-          <path d="M60 214h150M300 64v92"/>
-          <path d="M210 330h90M210 372h90"/>
-        </g>
-        <g class="plan__arc">
-          <path d="M210 214a40 40 0 0 1 40 40"/>
-          <path d="M420 316a38 38 0 0 0-38 38"/>
-          <path d="M300 156a38 38 0 0 0 38 38"/>
-        </g>
-        <g class="plan__furn">
-          <rect x="92" y="96" width="96" height="70" rx="4"/>
-          <path d="M92 118h96M116 96v22"/>
-          <rect x="352" y="96" width="120" height="46" rx="4"/>
-          <circle cx="412" cy="176" r="26"/>
-          <rect x="240" y="250" width="130" height="52" rx="4"/>
-          <rect x="96" y="252" width="86" height="128" rx="4"/>
-          <path d="M96 292h86"/>
-          <rect x="446" y="250" width="34" height="140" rx="4"/>
-        </g>
-        <g class="plan__mark">
-          <circle cx="280" cy="240" r="13"/>
-          <path d="M280 227v26M267 240h26"/>
-        </g>
-      </svg>
-      <div class="hero__badge">
+    <figure class="hero__art reveal">
+      <img class="plan" src="assets/hero/plan.svg" width="380" height="572"
+           alt="План квартиры с расстановкой мебели — рабочий чертёж студии" decoding="async">
+      <figcaption class="hero__badge">
         <b>7+</b><span>лет проектируем<br>и ведём объекты</span>
-      </div>
+      </figcaption>
+    </figure>
     </div>
   </div>
 
@@ -938,7 +912,7 @@
 }
 </script>
 
-<script src="config.js?v=6.0"></script>
-<script src="script.js?v=6.0"></script>
+<script src="config.js?v=7.2"></script>
+<script src="script.js?v=7.2"></script>
 </body>
 </html>

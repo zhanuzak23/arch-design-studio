@@ -326,14 +326,6 @@
     });
   }
 
-  /* длина штрихов для анимации чертежа */
-  if (!reduced) {
-    $$('.plan path, .plan rect, .plan circle').forEach(function (el) {
-      try { el.style.setProperty('--len', Math.ceil(el.getTotalLength ? el.getTotalLength() : 2000)); }
-      catch (e) { /* rect/circle без getTotalLength — остаётся значение по умолчанию */ }
-    });
-  }
-
   /* ---------------------------------------------------------
      КАЛЬКУЛЯТОР
      --------------------------------------------------------- */
