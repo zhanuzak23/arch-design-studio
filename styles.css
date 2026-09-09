@@ -229,30 +229,31 @@ legend{ padding:0; }
    ============================================================ */
 .hero{ position:relative; background:var(--ink); color:var(--txt-inv); overflow:hidden;
   padding-top:clamp(72px,9vw,128px); }
-/* фотография интерьера как фон: приглушена и затемнена, чтобы текст
-   оставался читаемым, а сетка и чертёж поверх не спорили с ней */
+/* Фотография интерьера как фон. Тонируется в бежевый через mix-blend-mode,
+   поэтому читается как часть палитры, а не как чужое цветное пятно.
+   Защитные градиенты вынесены в .hero__bg — он лежит поверх фото. */
 .hero__photo{ position:absolute; inset:0; overflow:hidden; }
-.hero__photo img{ width:100%; height:100%; object-fit:cover; object-position:60% 45%;
-  filter:grayscale(.6) contrast(1.04) brightness(.9); }
+.hero__photo img{ width:100%; height:100%; object-fit:cover; object-position:64% 42%;
+  filter:grayscale(1) contrast(1.16) brightness(.86); }
 .hero__photo::after{ content:''; position:absolute; inset:0;
-  background:
-    linear-gradient(102deg, var(--ink) 0%, rgba(13,13,13,.94) 34%,
-                    rgba(13,13,13,.74) 62%, rgba(13,13,13,.86) 100%),
-    linear-gradient(180deg, rgba(13,13,13,.7) 0%, rgba(13,13,13,.15) 34%, var(--ink) 96%); }
+  background:var(--beige); mix-blend-mode:color; opacity:.55; }
 
 .hero__bg{
-  position:absolute; inset:0; opacity:.35;
+  position:absolute; inset:0;
   background-image:
-    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size:160px 160px,160px 160px;
-  mask-image:linear-gradient(180deg,#000 0%,#000 46%,transparent 88%);
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 46%,transparent 88%);
+    linear-gradient(96deg, var(--ink) 0%, rgba(13,13,13,.96) 30%, rgba(13,13,13,.84) 49%,
+                    rgba(13,13,13,.3) 68%, rgba(13,13,13,.46) 100%),
+    linear-gradient(180deg, rgba(13,13,13,.55) 0%, rgba(13,13,13,0) 22%,
+                    rgba(13,13,13,.1) 56%, var(--ink) 97%),
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size:auto,auto,160px 160px,160px 160px;
 }
+
 .hero__glow{
   position:absolute; width:900px; height:900px; left:0; top:0; pointer-events:none;
-  transform:translate(-50%,-50%); opacity:.55;
-  background:radial-gradient(circle, rgba(201,188,168,.13), rgba(201,188,168,0) 62%);
+  transform:translate(-50%,-50%); opacity:.4;
+  background:radial-gradient(circle, rgba(201,188,168,.16), rgba(201,188,168,0) 62%);
   transition:opacity .6s var(--e);
 }
 .hero__in{
@@ -276,16 +277,20 @@ legend{ padding:0; }
 .promise{ display:flex; flex-wrap:wrap; gap:0; margin-top:36px;
   border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark); }
 .promise li{ display:inline-flex; align-items:center; gap:12px; font-size:13px; font-weight:400;
-  color:var(--txt-inv-2); padding:16px 24px 16px 0; }
+  color:rgba(255,255,255,.9); padding:16px 24px 16px 0; }
 .promise li + li{ padding-left:24px; border-left:1px solid var(--line-dark); }
 .promise .ico{ color:var(--beige); }
 
 .hero__cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:36px; }
-.hero__price{ margin-top:20px; font-size:13px; color:var(--txt-inv-3); letter-spacing:.01em; }
+.hero__price{ display:inline-block; margin-top:20px; font-size:13px;
+  color:rgba(255,255,255,.95); letter-spacing:.01em; }
 .hero__price b{ color:var(--beige); font-weight:500; }
 
 /* --- план: настоящий рабочий чертёж студии --- */
 .hero__art{ position:relative; margin:0; }
+.hero__art::before{ content:''; position:absolute; inset:-8% -12%; pointer-events:none;
+  background:radial-gradient(56% 56% at 52% 50%, rgba(13,13,13,.8), rgba(13,13,13,0) 74%); }
+.hero__art > *{ position:relative; }
 .plan{ width:100%; height:auto; max-height:min(60vh,540px); object-fit:contain;
   object-position:center; }
 .js .hero__art .plan{ clip-path:inset(0 100% 0 0);
