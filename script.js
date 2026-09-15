@@ -134,6 +134,11 @@
       }).then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return { via: 'endpoint' };
+      }).catch(function (e) {
+        // сервер недоступен или бот не настроен — заявка не теряется, уходит в WhatsApp
+        if (!CRM.whatsapp) throw e;
+        window.open('https://wa.me/' + CRM.whatsapp + '?text=' + encodeURIComponent(plainText(payload)), '_blank', 'noopener');
+        return { via: 'whatsapp' };
       });
     }
 

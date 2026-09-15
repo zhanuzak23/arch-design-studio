@@ -9,7 +9,7 @@ window.ARCH_CONFIG = {
     /* ВАРИАНТ 1 (рекомендуется). Свой эндпоинт-прокси — токен бота
        остаётся на сервере. Готовый код лежит в папке /server.
        Пример: 'https://arch-design.kz/api/lead.php'                      */
-    endpoint: '',
+    endpoint: 'https://arch-design-studio.netlify.app/.netlify/functions/lead',
 
     /* ВАРИАНТ 2 (быстрый старт, без сервера).
        Заявка уходит напрямую в Telegram Bot API из браузера.
