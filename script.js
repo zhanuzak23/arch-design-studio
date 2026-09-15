@@ -600,7 +600,7 @@
     var matched = cases.filter(function (c) {
       return currentFilter === 'all' || c.getAttribute('data-c') === currentFilter;
     });
-    var limit = (MOBILE.matches && !expanded) ? LIMIT : matched.length;
+    var limit = expanded ? matched.length : (MOBILE.matches ? LIMIT : 6);
 
     cases.forEach(function (c) { c.classList.add('is-hidden'); });
     matched.slice(0, limit).forEach(function (c) { c.classList.remove('is-hidden'); });
