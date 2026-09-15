@@ -10,3 +10,5 @@ desktop.ini
 
 # Логи заявок с PHP-прокси (не должны попадать в репозиторий)
 server/leads.csv
+
+.netlify/
